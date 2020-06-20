@@ -13,7 +13,7 @@ import java.util.List;
 public class RestaurantLoader {
     PlacesClient placesClient;
     public final static String TAG = "RestaurantLoader";
-    private static final String API_KEY_FILE = "AIzaSyB2Ul315SoD2GRH-xCMvpYUQ3sOlsx7u-Q";
+    private static final String API_KEY_FILE = "";
     public final Restaurant restaurant = new Restaurant();
 
     public RestaurantLoader(PlacesClient placesClient) {

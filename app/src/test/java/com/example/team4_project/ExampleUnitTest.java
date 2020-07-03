@@ -9,17 +9,17 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
 
     @Test
-    public void testOneRandomRestaurantReturnedWhenButtonPressed(){
+    public void testOneRandomRestaurantReturnedWhenButtonPressed() {
         assertEquals(getRandomRestaurant().length, 1);
     }
 
     @Test
-    public void testGoogleAPIConnectsProperly(){
+    public void testGoogleAPIConnectsProperly() {
         assertTrue(connectToAPI());
     }
 
     @Test
-    public void testDatabaseReturnsRestaurantTypeObject(){
+    public void testDatabaseReturnsRestaurantTypeObject() {
         assertTrue(getRestaurant() instanceof Restaurant);
     }
 

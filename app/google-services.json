@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "545777773597",
+    "firebase_url": "https://cs246-team04.firebaseio.com",
+    "project_id": "cs246-team04",
+    "storage_bucket": "cs246-team04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545777773597:android:6183d7a203a8d85ca02af4",
+        "android_client_info": {
+          "package_name": "com.example.team4_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545777773597-5ec98h98f5lnoegilbbaougt5c5flt52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAP6TZ_tqmZ4p0MPLjqqcHPGWNkYCj49Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545777773597-5ec98h98f5lnoegilbbaougt5c5flt52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

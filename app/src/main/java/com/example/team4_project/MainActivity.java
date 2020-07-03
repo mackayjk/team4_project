@@ -1,87 +1,55 @@
 package com.example.team4_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FetchPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText editText;
-    private TextView textView;
 
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String TEXT = "text";
+    private static final String TAG = "MyActivity";
+    PlacesClient placesClient;
 
-    private String text;
-    Logger logger = Logger.getLogger(MainActivity.class.getName());
-    /*Testing Comment*/
-    /*change made by MacKay*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.textView);
-        editText = findViewById(R.id.editText);
-        Button saveButton = findViewById(R.id.saveButton);
-        Button loadButton = findViewById(R.id.loadButton);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView.setText(editText.getText().toString());
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveData();
-            }
-        });
-        logger.log(Level.INFO, "Data Loaded.");
-        loadData();
-
-        updateViews();
-        logger.log(Level.INFO, "Views Updated");
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveData();
-        logger.log(Level.INFO, "Data now saved.");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadData();
-    }
-
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(TEXT, textView.getText().toString());
-        editor.apply();
-        Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
-    }
-
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        text = sharedPreferences.getString(TEXT, "");
-
+    //This method will initialize the places client.
+    public void initializePlaces() {
+        Places.initialize(getApplicationContext(), "AIzaSyB2Ul315SoD2GRH-xCMvpYUQ3sOlsx7u-Q");
+        placesClient = Places.createClient(this);
     }
 
 
-    public void updateViews() {
-        textView.setText(text);
+    public void loadRestaurant(View view) throws InterruptedException {
+        initializePlaces();
+        String placeId = "ChIJf83U3auQTYcRcsZgTfnaQOg";
+        RestaurantLoader restaurantLoader = new RestaurantLoader(placesClient);
+        Restaurant r = restaurantLoader.getRestaurant(placeId, this);
+        //Toast.makeText(this, "testing the toast message." + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void showData(Restaurant r)
+    {
+        Toast.makeText(this, "testing the toast message." + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
     }
 }

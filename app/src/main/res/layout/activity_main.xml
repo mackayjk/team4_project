@@ -51,7 +51,7 @@
         android:layout_marginTop="64dp"
         android:fontFamily="sans-serif"
         android:text="default@email.com"
-        android:textSize="18"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -76,7 +76,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/acme"
         android:text="Password"
-        android:textSize="18"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -89,7 +89,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/acme"
         android:text="Address"
-        android:textSize="18"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -101,7 +101,7 @@
         android:layout_marginLeft="207dp"
         android:layout_marginTop="36dp"
         android:text="123 Fake St."
-        android:textSize="18"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 

@@ -18,6 +18,7 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseDataHandler fire = new FirebaseDataHandler();
+        Log.d(TAG, "onCreate: ABOUT TO WRITE");
+        fire.saveData();
+        fire.readData();
     }
 
     //This method will initialize the places client.
@@ -48,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showData(Restaurant r)
-    {
+    public void showData(Restaurant r) {
         Toast.makeText(this, "testing the toast message." + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
     }
 }

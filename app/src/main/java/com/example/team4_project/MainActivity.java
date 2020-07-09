@@ -1,40 +1,69 @@
 package com.example.team4_project;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-
-
-import java.util.Arrays;
-import java.util.List;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MyActivity";
     PlacesClient placesClient;
+    EditText editUsername;
+    EditText editEmail;
+    Button saveButton;
+    Button userInfoButton;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("users");
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseDataHandler fire = new FirebaseDataHandler();
-        Log.d(TAG, "onCreate: ABOUT TO WRITE");
-        fire.saveData();
-        fire.readData();
+        editUsername = findViewById(R.id.usernameDisplay);
+        editEmail = findViewById(R.id.email);
+        saveButton = findViewById(R.id.saveButton);
+
+        myRef.child("UserData");
+        UserData userData = new UserData();
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = editUsername.getText().toString().trim();
+                String email = editEmail.getText().toString().trim();
+                userData.setUsername(username);
+                userData.setEmail(email);
+                userData.setPlaceId("");
+                myRef.child(username).setValue(userData);
+                Toast.makeText(MainActivity.this, "Successfully Created User", Toast.LENGTH_LONG).show();
+            }
+        });
+        userInfoButton = findViewById(R.id.viewUser);
+        userInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUserInfo();
+            }
+        });
+    }
+
+    public void openUserInfo(){
+        Intent intent = new Intent(this, UserInfo.class);
+        startActivity(intent);
     }
 
     //This method will initialize the places client.

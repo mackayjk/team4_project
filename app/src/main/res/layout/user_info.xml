@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/usernameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/emailDisplay"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="181dp" />
+
+    <TextView
+        android:id="@+id/emailDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="284dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/placeIdDisplay"
+        tools:layout_editor_absoluteX="176dp" />
+
+    <TextView
+        android:id="@+id/placeIdDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="176dp" />
+
+    <EditText
+        android:id="@+id/usernameEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter your username:"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/usernameDisplay"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="110dp" />
+
+    <Button
+        android:id="@+id/findUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find User"
+        app:layout_constraintBottom_toBottomOf="@+id/placeIdDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/setUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Username"
+        app:layout_constraintBottom_toTopOf="@+id/placeIdDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailDisplay" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,13 +65,27 @@ public class MainActivity extends AppCompatActivity {
         this.getSupportActionBar().setCustomView(R.layout.action_bar);
 
         Button userDataButton = (Button) findViewById(R.id.open_user_data);
-        Button signinButton = (Button) findViewById(R.id.open_signin);
-        Button signupButton = (Button) findViewById(R.id.open_signup);
+        Button signInButton = (Button) findViewById(R.id.open_signin);
+        Button signUpButton = (Button) findViewById(R.id.open_signup);
 
         userDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUserData();
+            }
+        });
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignIn();
+            }
+        });
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignUp();
             }
         });
 
@@ -197,13 +211,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void openSignIn() {
-//        Intent intent = new Intent(this, SignIn.class);
-//        startActivity(intent);
-//    }
-//
-//    public void openSignUp() {
-//        Intent intent = new Intent(this, SignUp.class);
-//        startActivity(intent);
-//    }
+    public void openSignIn() {
+        Intent intent = new Intent(this, SignIn.class);
+        startActivity(intent);
+    }
+
+    public void openSignUp() {
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
+    }
 }

@@ -40,10 +40,8 @@ class FirebaseDataHandler {
                 for (DataSnapshot y : dataSnapshot.getChildren()) {
                     UserData userData = y.getValue(UserData.class);
                     assert userData != null;
-                    Log.w(TAG, "" + userData.getPlaceId());
                     try {
                         if (userData.getUsername().equals(username)) {
-                            data.setPlaceId(userData.getPlaceId());
                             data.setEmail(userData.getEmail());
                             data.setUsername(userData.getUsername());
                         }
@@ -82,7 +80,6 @@ class FirebaseDataHandler {
     void saveTry(String username, String email, String restaurant) {
         userData.setUsername(username);
         userData.setEmail(email);
-        userData.setPlaceId(restaurant);
         myRef.child(username).setValue(userData);
     }
 
@@ -91,7 +88,6 @@ class FirebaseDataHandler {
         DatabaseReference myRef = database.getReference("users");
         userData.setUsername(username);
         userData.setEmail(email);
-        userData.setPlaceId(restaurant);
         myRef.child(username).push().setValue(userData);
     }
 

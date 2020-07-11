@@ -203,6 +203,24 @@
                 android:textColor="#ccc"
                 android:textSize="18dp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/open_user_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View user data" />
+
+        <Button
+            android:id="@+id/open_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign in" />
+
+        <Button
+            android:id="@+id/open_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="signup" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

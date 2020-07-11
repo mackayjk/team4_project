@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -62,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
         this.setTitle("Rando");
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         this.getSupportActionBar().setCustomView(R.layout.action_bar);
+
+        Button userDataButton = (Button) findViewById(R.id.open_user_data);
+        Button signinButton = (Button) findViewById(R.id.open_signin);
+        Button signupButton = (Button) findViewById(R.id.open_signup);
+
+        userDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUserData();
+            }
+        });
 
     }
 
@@ -177,4 +189,21 @@ public class MainActivity extends AppCompatActivity {
         UserData userData = new UserData();
 
     }
+
+
+
+    public void openUserData() {
+        Intent intent = new Intent(this, UserInfo.class);
+        startActivity(intent);
+    }
+
+//    public void openSignIn() {
+//        Intent intent = new Intent(this, SignIn.class);
+//        startActivity(intent);
+//    }
+//
+//    public void openSignUp() {
+//        Intent intent = new Intent(this, SignUp.class);
+//        startActivity(intent);
+//    }
 }

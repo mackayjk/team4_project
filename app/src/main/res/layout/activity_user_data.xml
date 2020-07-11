@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_data">
+    tools:context=".UserInfo">
     <ScrollView
         android:layout_width="409dp"
         android:layout_height="729dp"
@@ -116,13 +116,13 @@
                         android:textColor="@android:color/black"/>
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/name_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:fontFamily="@font/nunito"
                         android:text="MacKay Killian"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -142,7 +142,7 @@
                         android:textColor="@android:color/black"/>
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/username_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -168,7 +168,7 @@
                         android:textColor="@android:color/black"/>
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/email_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -206,7 +206,7 @@
                         android:layout_marginTop="15dp"/>
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/user_restaurant_name_view"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -216,7 +216,7 @@
                         android:textColor="@android:color/black"/>
 
                     <Button
-                        android:id="@+id/restaurant_directions_view"
+                        android:id="@+id/user_restaurant_directions_view"
                         android:layout_width="71dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"

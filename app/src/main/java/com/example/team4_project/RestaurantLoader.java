@@ -1,8 +1,11 @@
 package com.example.team4_project;
 
 import android.app.Activity;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -10,7 +13,17 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,11 +32,22 @@ public class RestaurantLoader {
     public final static String TAG = "RestaurantLoader";
     private static final String API_KEY_FILE = "AIzaSyB2Ul315SoD2GRH-xCMvpYUQ3sOlsx7u-Q";
     public final Restaurant restaurant = new Restaurant();
+    private String apiCharset;
+
+    private static final String URL_ENDPOINT_PLACEID = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json";
 
     public RestaurantLoader(PlacesClient placesClient) {
         this.placesClient = placesClient;
     }
 
+    /**
+     * This Method will use the PlaceId for a place in Google API to get detailed information of the place and store it in
+     * a restaurant class.
+     * @param placeId
+     * @param activity
+     * @return restaurant
+     * @throws InterruptedException
+     */
     public Restaurant getRestaurant(String placeId, MainActivity activity) throws InterruptedException {
         //Restaurant restaurant = new Restaurant();
 
@@ -37,6 +61,7 @@ public class RestaurantLoader {
 
             //get the place a save the info to restaurant.
             Place place = response.getPlace();
+            restaurant.setRestaurantId(place.getId());
             restaurant.setRestaurantName(place.getName());
             restaurant.setRestaurantAddress(place.getAddress());
             restaurant.setRestaurantRating(place.getRating());

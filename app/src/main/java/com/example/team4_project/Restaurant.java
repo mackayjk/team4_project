@@ -6,6 +6,11 @@ import com.google.android.libraries.places.api.model.Place;
 
 import java.util.List;
 
+/**
+ * Resturant class will store information for a restaurant.
+ * @author mackaykillian
+ * @version 1.0
+ */
 public class Restaurant {
 
     public CharSequence restaurantName;
@@ -13,6 +18,7 @@ public class Restaurant {
     public Double restaurantRating;
     public List<Place.Type> restaurantType;
     public Uri restaurantWebsiteUri;
+    public CharSequence restaurantId;
 
 
     public Restaurant() {
@@ -21,6 +27,10 @@ public class Restaurant {
 //        restaurantRating = placeRating;
 //        restaurantType = placeType;
 //        restaurantWebsiteUri = placeWebsiteUri;
+    }
+
+    public void setRestaurantId(CharSequence restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public void setRestaurantName(CharSequence restaurantName) {
@@ -61,6 +71,10 @@ public class Restaurant {
 
     public Uri getRestaurantWebsiteUri() {
         return restaurantWebsiteUri;
+    }
+
+    public CharSequence getRestaurantId() {
+        return restaurantId;
     }
 
 

@@ -6,20 +6,32 @@
 
 
     <EditText
-        android:hint="Enter a Food"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
+        android:id="@+id/emailEntry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:id="@+id/add_new_food"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:hint="Username: "
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
 
     <Button
 
-        android:text="Add to database"
+        android:id="@+id/registerUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAddNewFood"/>
+        android:text="Register" />
+
 </LinearLayout>

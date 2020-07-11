@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSignUp() {
-        Intent intent = new Intent(this, SignUp.class);
+        Intent intent = new Intent(this, Register.class);
         startActivity(intent);
     }
 }

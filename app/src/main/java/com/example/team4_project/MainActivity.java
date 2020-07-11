@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         Button userDataButton = (Button) findViewById(R.id.open_user_data);
         Button signInButton = (Button) findViewById(R.id.open_signin);
         Button signUpButton = (Button) findViewById(R.id.open_signup);
+        Button btnViewDatabase = (Button) findViewById(R.id.view_items_screen);
 
         userDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
                 openSignUp();
             }
         });
+
+        btnViewDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ViewDatabase.class);
+                startActivity(intent);
+            }
+        });
+        
 
     }
 

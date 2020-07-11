@@ -99,4 +99,55 @@ public class RestaurantLoader {
         return restaurant;
     }
 
+    public Restaurant getRestaurant2(String placeId, UserInfo activity) throws InterruptedException {
+        //Restaurant restaurant = new Restaurant();
+
+        //specify the fields to return from the Places API
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS,
+                Place.Field.RATING, Place.Field.TYPES, Place.Field.WEBSITE_URI);
+        //start a new fetch Place request and crete a new instance with specified id and fields
+        FetchPlaceRequest request = FetchPlaceRequest.newInstance(placeId, placeFields);
+
+        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+
+            //get the place a save the info to restaurant.
+            Place place = response.getPlace();
+            restaurant.setRestaurantId(place.getId());
+            restaurant.setRestaurantName(place.getName());
+            restaurant.setRestaurantAddress(place.getAddress());
+            restaurant.setRestaurantRating(place.getRating());
+            restaurant.setRestaurantType(place.getTypes());
+            restaurant.setRestaurantWebsiteUri(place.getWebsiteUri());
+
+
+            //When it done, now I have access to the info, so I can show it in the MainActivity screen...
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // This is code that will now run on the UI thread. Call the function in
+                    // MainActivity that will update the UI correctly.
+                    activity.showData(restaurant);
+                }
+            });
+
+            //here in the Log cat message it show the correct restaurant info that is pulled from the API
+            Log.d(TAG, "Restaurant Name: " + restaurant.getRestaurantName());
+            Log.d(TAG, "Restaurant Address: " + restaurant.getRestaurantAddress());
+            Log.d(TAG, "Restaurant Rating: " + restaurant.getRestaurantRating());
+            Log.d(TAG, "Restaurant Type: " + restaurant.getRestaurantType());
+            Log.d(TAG, "Restaurant Website: " + restaurant.getRestaurantWebsiteUri());
+
+
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                int statusCode = apiException.getStatusCode();
+                // Handle error with given status code.
+                Log.d(TAG, "Place not found: " + exception.getMessage());
+            }
+        });
+        Log.v(TAG, "Restaurant Name: " + restaurant.getRestaurantName());
+        return restaurant;
+    }
+
 }

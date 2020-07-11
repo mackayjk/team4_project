@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveRestaurant(View view, String username) {
         UserData userData = new UserData();
-//        String username = "asdf";
+        //String username = "asdf";
         userData.setUsername(username);
         ArrayList<String> places = new ArrayList<>();
         TextView placeIdView = (TextView) findViewById(R.id.restaurant_id_view);

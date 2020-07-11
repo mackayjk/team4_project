@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class UserData {
     private String username;
     private String email;
+    private ArrayList places;
 
     public ArrayList getPlaces() {
         return places;
@@ -14,7 +15,6 @@ public class UserData {
         this.places = places;
     }
 
-    private ArrayList places;
 
     public UserData() {
     }

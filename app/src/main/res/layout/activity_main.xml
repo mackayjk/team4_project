@@ -221,6 +221,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="signup" />
+
+        <Button
+            android:id="@+id/view_items_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View User Data" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

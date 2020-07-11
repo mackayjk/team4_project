@@ -1,19 +1,22 @@
 package com.example.team4_project;
 
+import java.util.ArrayList;
+
 public class UserData {
-    private String placeId;
     private String username;
     private String email;
 
+    public ArrayList getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(ArrayList<String> places) {
+        this.places = places;
+    }
+
+    private ArrayList places;
+
     public UserData() {
-    }
-
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
     }
 
     public String getUsername() {
@@ -32,10 +35,10 @@ public class UserData {
         this.email = email;
     }
 
-    public UserData(String username, String placeId, String email) {
+    public UserData(String username, String email, ArrayList places) {
         this.username = username;
-        this.placeId = placeId;
         this.email = email;
+        this.places = places;
     }
 
 }

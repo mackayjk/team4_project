@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -37,8 +38,12 @@ import com.google.firebase.database.annotations.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         initializeAutocomplete();
 
         this.setTitle("Rando");
-        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         this.getSupportActionBar().setCustomView(R.layout.action_bar);
 
     }
@@ -66,13 +71,14 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID));
+        assert autocompleteFragment != null;
+        autocompleteFragment.setPlaceFields(Collections.singletonList(Place.Field.ID));
         autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT);
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
-            public void onPlaceSelected(@NotNull Place place) {
+            public void onPlaceSelected(@NonNull @NotNull Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
                 try {
@@ -85,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             @Override
-            public void onError(@NotNull Status status) {
+            public void onError(@NonNull @NotNull Status status) {
                 // TODO: Handle the error.
                 Log.i(TAG, "An error occurred: " + status);
             }
@@ -108,8 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showData(Restaurant r)
-    {
+    public void showData(Restaurant r) {
         Toast.makeText(this, "Restaurant found!\n" + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
         TextView restaurantName = (TextView) findViewById(R.id.restaurant_name_view);
         TextView restaurantAddress = (TextView) findViewById(R.id.restaurant_address_view);
@@ -136,32 +141,40 @@ public class MainActivity extends AppCompatActivity {
         TextView websiteView = (TextView) findViewById(R.id.restaurant_website_view);
         String website = websiteView.getText().toString();
 
-        Intent browserIntent = new Intent (Intent.ACTION_VIEW, Uri.parse(website));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(website));
         startActivity(browserIntent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void openDirection(View view) throws UnsupportedEncodingException {
         TextView idView = (TextView) findViewById(R.id.restaurant_id_view);
-        TextView nameView= (TextView) findViewById(R.id.restaurant_name_view);
-        String placeId= idView.getText().toString();
+        TextView nameView = (TextView) findViewById(R.id.restaurant_name_view);
+        String placeId = idView.getText().toString();
         String placeName = nameView.getText().toString();
         String encodedName = URLEncoder.encode(placeName, StandardCharsets.UTF_8.toString());
 
         String query = "https://www.google.com/maps/search/?api=1&query=" + encodedName + "&query_place_id=" + placeId;
-        Intent directionIntent = new Intent (Intent.ACTION_VIEW, Uri.parse(query));
+        Intent directionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(query));
         startActivity(directionIntent);
     }
 
-    public void saveRestaurant(View view) {
+    public void saveRestaurant(View view, String username) {
         UserData userData = new UserData();
-        String username = "asdf";
+//        String username = "asdf";
         userData.setUsername(username);
-
+        ArrayList<String> places = new ArrayList<>();
         TextView placeIdView = (TextView) findViewById(R.id.restaurant_id_view);
         String restaurantId = placeIdView.getText().toString();
-        userData.setPlaceId(restaurantId);
+        places.add(restaurantId);
+        places.add("ABCDEFGH");
+        userData.setPlaces(places);
         myRef.child(username).setValue(userData);
         myRef.child(username).child("places").setValue(restaurantId);
+        myRef.child(username).child("places").setValue(places);
+    }
+
+    public void getUserData(String username){
+        UserData userData = new UserData();
+
     }
 }

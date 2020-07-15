@@ -17,22 +17,19 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignIn extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private EditText mEmail, mPassword;
-    private Button btnSignIn, btnSignOut, btnAddItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        mEmail = (EditText) findViewById(R.id.email);
+        mEmail = (EditText) findViewById(R.id.emailEntry);
         mPassword = (EditText) findViewById(R.id.password);
-        btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
-        btnSignOut = (Button) findViewById(R.id.email_sign_out_button);
-        btnAddItems = (Button) findViewById(R.id.add_item_screen);
+        Button btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
+        Button btnSignOut = (Button) findViewById(R.id.email_sign_out_button);
+        Button btnAddItems = (Button) findViewById(R.id.add_item_screen);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -75,7 +72,7 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: Switching Activities.");
-                Intent intent = new Intent(SignIn.this, SignUp.class);
+                Intent intent = new Intent(SignIn.this, Register.class);
                 startActivity(intent);
             }
         });

@@ -33,9 +33,7 @@ public class ViewDatabase extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_user_info);
-
         mListView = (ListView) findViewById(R.id.listview);
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mFirebaseDatabase.getReference();

@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Button signInButton = (Button) findViewById(R.id.open_signin);
         Button signUpButton = (Button) findViewById(R.id.open_signup);
         Button btnViewDatabase = (Button) findViewById(R.id.view_items_screen);
+        Button btnOpenRandom = (Button) findViewById(R.id.open_random);
 
         userDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ViewDatabase.class);
                 startActivity(intent);
+            }
+        });
+
+        btnOpenRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRandom();
             }
         });
 
@@ -185,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView placeIdView = (TextView) findViewById(R.id.restaurant_id_view);
         String restaurantId = placeIdView.getText().toString();
-
 //        myRef.child(userID).setValue(userData);
 //        myRef.child(userID).child("places").setValue(restaurantId);
 //        myRef.child(userID).child("places").setValue(places);
@@ -209,6 +216,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSignUp() {
         Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
+    }
+
+    public void openRandom() {
+        Intent intent = new Intent(this, random_place.class);
         startActivity(intent);
     }
 }

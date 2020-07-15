@@ -227,6 +227,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="View User Data" />
+
+        <Button
+            android:id="@+id/open_random"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open Random" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

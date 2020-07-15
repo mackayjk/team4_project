@@ -20,7 +20,6 @@ public class SignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText mEmail, mPassword;
-    private Button btnSignIn, btnSignOut, btnAddItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +27,9 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         mEmail = (EditText) findViewById(R.id.emailEntry);
         mPassword = (EditText) findViewById(R.id.password);
-        btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
-        btnSignOut = (Button) findViewById(R.id.email_sign_out_button);
-        btnAddItems = (Button) findViewById(R.id.add_item_screen);
+        Button btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
+        Button btnSignOut = (Button) findViewById(R.id.email_sign_out_button);
+        Button btnAddItems = (Button) findViewById(R.id.add_item_screen);
 
         mAuth = FirebaseAuth.getInstance();
 

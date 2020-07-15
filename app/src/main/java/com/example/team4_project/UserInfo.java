@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -71,12 +72,29 @@ public class UserInfo extends AppCompatActivity {
         this.getSupportActionBar().setCustomView(R.layout.action_bar);
 
         Button userOpenDirectionButton = (Button) findViewById(R.id.user_restaurant_directions_view1);
+        ImageView userDataButton = (ImageView) findViewById(R.id.image_button_user);
+        ImageView btnOpenRandom = (ImageView) findViewById(R.id.image_button_random);
+        ImageView btnOpenHome = (ImageView) findViewById(R.id.image_button_home);
 
         userOpenDirectionButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 //openDirection2();
+            }
+        });
+
+        btnOpenHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHome();
+            }
+        });
+
+        btnOpenRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRandom();
             }
         });
 
@@ -87,15 +105,6 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 displayUserInfo();
-            }
-        });
-
-        Button testingButton = (Button) findViewById(R.id.button5);
-
-        testingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testingThis();
             }
         });
     }
@@ -118,8 +127,6 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                TextView username = (TextView) findViewById(R.id.user_username_view);
-                username.setText(value);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -188,8 +195,6 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                TextView username = (TextView) findViewById(R.id.user_name_view);
-                username.setText(value);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -264,5 +269,16 @@ public class UserInfo extends AppCompatActivity {
     public void testingThis() {
         Toast.makeText(this, "Restaurant found!\n" + myRestaurant.getRestaurantName(), Toast.LENGTH_SHORT).show();
     }
+
+    public void openRandom() {
+        Intent intent = new Intent(this, random_place.class);
+        startActivity(intent);
+    }
+
+    public void openHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }

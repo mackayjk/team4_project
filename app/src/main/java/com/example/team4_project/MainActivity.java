@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -60,14 +61,15 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         this.getSupportActionBar().setCustomView(R.layout.action_bar);
 
-        Button userDataButton = (Button) findViewById(R.id.open_user_data);
+        ImageView userDataButton = (ImageView) findViewById(R.id.image_button_user);
+        ImageView btnOpenRandom = (ImageView) findViewById(R.id.image_button_random);
+        ImageView btnOpenHome = (ImageView) findViewById(R.id.image_button_home);
         Button signInButton = (Button) findViewById(R.id.open_signin);
         Button signUpButton = (Button) findViewById(R.id.open_signup);
-        Button btnViewDatabase = (Button) findViewById(R.id.view_items_screen);
+        //Button btnViewDatabase = (Button) findViewById(R.id.view_items_screen);
         Button save_restaurant = (Button) findViewById(R.id.save_button_view);
         TextView restaurant_id_view = (TextView) findViewById(R.id.restaurant_id_view);
         TextView name = (TextView) findViewById(R.id.restaurant_name_view);
-
 
         save_restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 saveRestaurant();
             }
         });
-        Button btnOpenRandom = (Button) findViewById(R.id.open_random);
 
         userDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnViewDatabase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ViewDatabase.class);
-                startActivity(intent);
-            }
-        });
+//        btnViewDatabase.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, ViewDatabase.class);
+//                startActivity(intent);
+//            }
+//        });
 
         btnOpenRandom.setOnClickListener(new View.OnClickListener() {
             @Override

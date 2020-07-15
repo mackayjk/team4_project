@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserInfo">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -32,7 +34,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/profile_placeholder" />
 
             </androidx.cardview.widget.CardView>
 
@@ -63,117 +65,34 @@
                     android:text="Test Person"
                     android:textColor="@android:color/black"
                     android:textSize="34dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/user_email_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="test@example.com"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="532dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="36dp"
-                    android:layout_marginBottom="16dp"
-                    android:padding="8dp"
-                    app:cardCornerRadius="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="16dp"
-                        android:gravity="bottom"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/nunito_bold"
-                                android:gravity="right"
-                                android:text="Name"
-                                android:textColor="@android:color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:id="@+id/user_name_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:fontFamily="@font/nunito"
-                                android:text="Test Person"
-                                android:textColor="@android:color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/nunito_bold"
-                                android:gravity="right"
-                                android:text="username"
-                                android:textColor="@android:color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:id="@+id/user_username_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:fontFamily="@font/nunito"
-                                android:text="testusername"
-                                android:textColor="@android:color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/nunito_bold"
-                                android:gravity="right"
-                                android:text="email"
-                                android:textColor="@android:color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:id="@+id/user_email_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:fontFamily="@font/nunito"
-                                android:text="test@example.com"
-                                android:textColor="@android:color/black" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -316,22 +235,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <Button
-                        android:id="@+id/open_main_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Back to Home" />
-
-                    <Button
                         android:id="@+id/synchronize_data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Synchronize data" />
 
-                    <Button
-                        android:id="@+id/button5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Test" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -339,4 +247,44 @@
 
 
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:background="#f5f6f6"
+        app:itemIconTint="#fff"
+        app:itemTextColor="#000"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/image_button_random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/round_help_center_black_24dp" />
+
+            <ImageView
+                android:id="@+id/image_button_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/round_home_black_24dp" />
+
+            <ImageView
+                android:id="@+id/image_button_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/round_person_black_24dp" />
+        </LinearLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

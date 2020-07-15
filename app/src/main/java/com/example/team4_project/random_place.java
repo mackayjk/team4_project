@@ -3,15 +3,19 @@ package com.example.team4_project;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -26,6 +30,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Random;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -37,10 +42,16 @@ public class random_place extends AppCompatActivity {
     String q = "restaurant in provo";
     Gson gson = new Gson();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_place);
+
+        this.setTitle("Rando");
+        Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        this.getSupportActionBar().setCustomView(R.layout.action_bar);
 
         Button getRandomButton = (Button) findViewById(R.id.random_button);
 
@@ -48,6 +59,24 @@ public class random_place extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startAsyncActivity();
+            }
+        });
+
+        ImageView userDataButton = (ImageView) findViewById(R.id.image_button_user2);
+        ImageView btnOpenRandom = (ImageView) findViewById(R.id.image_button_random2);
+        ImageView btnOpenHome = (ImageView) findViewById(R.id.image_button_home2);
+
+        userDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUserData();
+            }
+        });
+
+        btnOpenHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHome();
             }
         });
     }
@@ -126,6 +155,15 @@ public class random_place extends AppCompatActivity {
             return getHttpResults(url);
         }
 
+    }
+
+    public void openUserData() {
+        Intent intent = new Intent(this, UserInfo.class);
+        startActivity(intent);
+    }
+    public void openHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
 

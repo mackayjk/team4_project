@@ -154,7 +154,6 @@
                     android:layout_weight="1"
                     android:background="@color/quantum_googredA200"
                     android:fontFamily="@font/nunito_bold"
-                    android:onClick="saveRestaurant"
                     android:text="Add to favorites"
                     android:textColor="@android:color/white"
                     android:textSize="16dp" />

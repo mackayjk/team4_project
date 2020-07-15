@@ -114,17 +114,17 @@ public class UserInfo extends AppCompatActivity {
 
     public void displayUserInfo() {
 
-//        myRef.child(userID).child("username").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String value = dataSnapshot.getValue(String.class);
-//                TextView username = (TextView) findViewById(R.id.user_username_view);
-//                username.setText(value);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
+        myRef.child(userID).child("username").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView username = (TextView) findViewById(R.id.user_username_view);
+                username.setText(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         myRef.child(userID).child("email").addValueEventListener(new ValueEventListener() {
             @Override
@@ -244,11 +244,9 @@ public class UserInfo extends AppCompatActivity {
 
     public void showData(Restaurant r, TextView restaurantSlot) {
         restaurantSlot.setText(r.restaurantName);
-
         myRestaurant.setRestaurantId(r.restaurantId);
         myRestaurant.setRestaurantName(r.restaurantName);
         myRestaurant.setRestaurantAddress(r.restaurantAddress);
-
     }
 
 

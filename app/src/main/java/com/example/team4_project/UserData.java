@@ -41,4 +41,5 @@ public class UserData {
         this.places = places;
     }
 
+
 }

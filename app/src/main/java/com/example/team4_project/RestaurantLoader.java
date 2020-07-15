@@ -3,6 +3,7 @@ package com.example.team4_project;
 import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -99,7 +101,7 @@ public class RestaurantLoader {
         return restaurant;
     }
 
-    public Restaurant getRestaurant2(String placeId, UserInfo activity) throws InterruptedException {
+    public Restaurant getRestaurant2(String placeId, UserInfo activity, TextView restaurantSlot) throws InterruptedException {
         //Restaurant restaurant = new Restaurant();
 
         //specify the fields to return from the Places API
@@ -126,7 +128,7 @@ public class RestaurantLoader {
                 public void run() {
                     // This is code that will now run on the UI thread. Call the function in
                     // MainActivity that will update the UI correctly.
-                    activity.showData(restaurant);
+                    activity.showData(restaurant, restaurantSlot);
                 }
             });
 

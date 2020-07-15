@@ -195,18 +195,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveRestaurant(View view, String username) {
-        UserData userData = new UserData();
-        //String username = "asdf";
-        userData.setUsername(username);
-        ArrayList<String> places = new ArrayList<>();
+
         TextView placeIdView = (TextView) findViewById(R.id.restaurant_id_view);
         String restaurantId = placeIdView.getText().toString();
-        places.add(restaurantId);
-        places.add("ABCDEFGH");
-        userData.setPlaces(places);
-        myRef.child(username).setValue(userData);
-        myRef.child(username).child("places").setValue(restaurantId);
-        myRef.child(username).child("places").setValue(places);
+
+//        myRef.child(userID).setValue(userData);
+//        myRef.child(userID).child("places").setValue(restaurantId);
+//        myRef.child(userID).child("places").setValue(places);
     }
 
     public void getUserData(String username){

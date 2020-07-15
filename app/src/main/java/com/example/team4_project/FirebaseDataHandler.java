@@ -127,7 +127,6 @@ class FirebaseDataHandler {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Failed to read value
                 Log.w(TAG, "Taco Paco", error.toException());
             }
         });

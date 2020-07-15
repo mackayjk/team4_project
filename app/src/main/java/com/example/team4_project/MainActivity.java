@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -23,8 +24,13 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     PlacesClient placesClient;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("users");
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializePlaces();
         initializeAutocomplete();
+        mAuth = FirebaseAuth.getInstance();
 
         this.setTitle("Rando");
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -55,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
         Button signInButton = (Button) findViewById(R.id.open_signin);
         Button signUpButton = (Button) findViewById(R.id.open_signup);
         Button btnViewDatabase = (Button) findViewById(R.id.view_items_screen);
+        Button save_restaurant = (Button) findViewById(R.id.save_button_view);
+        TextView restaurant_id_view = (TextView) findViewById(R.id.restaurant_id_view);
+        TextView name = (TextView) findViewById(R.id.restaurant_name_view);
+
+
+        save_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveRestaurant();
+            }
+        });
         Button btnOpenRandom = (Button) findViewById(R.id.open_random);
 
         userDataButton.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +113,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Object value = dataSnapshot.getValue();
+                Log.d(TAG, "Value is: " + value);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        save_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: Attempting to add object to database.");
+                String Restaurant = restaurant_id_view.getText().toString();
+                String RestName = name.getText().toString();
+                if(!Restaurant.equals("")){
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    assert user != null;
+                    String userID = user.getUid();
+                    myRef.child(userID).child("email").setValue(user.getEmail());
+                    myRef.child(userID).child("places").child(Restaurant).setValue(Restaurant);
+                    toastMessage("Adding " + RestName + " to favorites");
+                    restaurant_id_view.setText("");
+                }
+            }
+        });
     }
+
 
     public void initializeAutocomplete() {
         // Initialize the AutocompleteSupportFragment.
@@ -189,13 +242,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(directionIntent);
     }
 
-    public void saveRestaurant(View view, String username) {
 
+
+    public void saveRestaurant() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         TextView placeIdView = (TextView) findViewById(R.id.restaurant_id_view);
         String restaurantId = placeIdView.getText().toString();
-//        myRef.child(userID).setValue(userData);
-//        myRef.child(userID).child("places").setValue(restaurantId);
-//        myRef.child(userID).child("places").setValue(places);
+        UserData userData = new UserData();
+        ArrayList<String> places = new ArrayList<>();
+        assert currentUser != null;
+        places.add(restaurantId);
+        userData.setPlaces(places);
+        userData.setEmail(currentUser.getEmail());
+        myRef.child(currentUser.getUid()).setValue(userData);
     }
 
     public void getUserData(String username) {
@@ -222,5 +281,9 @@ public class MainActivity extends AppCompatActivity {
     public void openRandom() {
         Intent intent = new Intent(this, random_place.class);
         startActivity(intent);
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 }

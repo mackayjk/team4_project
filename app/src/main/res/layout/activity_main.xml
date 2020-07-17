@@ -196,6 +196,16 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Signin to save restaurant to your account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
                 <Button
                     android:id="@+id/open_signup"
                     android:layout_width="wrap_content"

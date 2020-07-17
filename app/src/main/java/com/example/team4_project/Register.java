@@ -72,7 +72,6 @@ public class Register extends AppCompatActivity {
         mDatabase.child(currentUser.getUid()).child("places").setValue(places);
         mDatabase.child(currentUser.getUid()).child("name").setValue("");//adding user info to database
         mDatabase.child(currentUser.getUid()).child("places").child("Favorite Foods").child("ooof").setValue("true");
-        saveRestaurant("OOOOOOOF");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

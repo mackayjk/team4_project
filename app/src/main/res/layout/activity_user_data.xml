@@ -64,7 +64,7 @@
                     android:fontFamily="@font/nunito_bold"
                     android:text="Test Person"
                     android:textColor="@android:color/black"
-                    android:textSize="34dp" />
+                    android:textSize="24dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,6 +94,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ListView
+                    android:id="@+id/ListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="402dp">
+
+                </ListView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -103,136 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="16dp"
-                        app:cardCornerRadius="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:id="@+id/imageView4"
-                                android:layout_width="16dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/rice_bowl_black_18dp" />
-
-                            <TextView
-                                android:id="@+id/user_restaurant_name_view1"
-                                android:layout_width="130dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/nunito_bold"
-                                android:maxLines="1"
-                                android:text="Restaurant Name"
-                                android:textColor="@android:color/black"
-                                android:textSize="20dp" />
-
-                            <Button
-                                android:id="@+id/user_restaurant_directions_view1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginRight="16dp"
-                                android:layout_weight="1"
-                                android:background="@android:color/background_light"
-                                android:drawableRight="@drawable/baseline_directions_black_18dp"
-                                android:fontFamily="@font/nunito" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="16dp"
-                        app:cardCornerRadius="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:id="@+id/imageView4"
-                                android:layout_width="16dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/rice_bowl_black_18dp" />
-
-                            <TextView
-                                android:id="@+id/user_restaurant_name_view2"
-                                android:layout_width="130dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/nunito_bold"
-                                android:maxLines="1"
-                                android:text="Restaurant Name"
-                                android:textColor="@android:color/black"
-                                android:textSize="20dp" />
-
-                            <Button
-                                android:id="@+id/user_restaurant_directions_view2"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginRight="16dp"
-                                android:layout_weight="1"
-                                android:background="@android:color/background_light"
-                                android:drawableRight="@drawable/baseline_directions_black_18dp"
-                                android:fontFamily="@font/nunito" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        app:cardCornerRadius="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:id="@+id/imageView4"
-                                android:layout_width="16dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/rice_bowl_black_18dp" />
-
-                            <TextView
-                                android:id="@+id/user_restaurant_name_view3"
-                                android:layout_width="130dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/nunito_bold"
-                                android:maxLines="1"
-                                android:text="Restaurant Name"
-                                android:textColor="@android:color/black"
-                                android:textSize="20dp" />
-
-                            <Button
-                                android:id="@+id/user_restaurant_directions_view3"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginRight="16dp"
-                                android:layout_weight="1"
-                                android:background="@android:color/background_light"
-                                android:drawableRight="@drawable/baseline_directions_black_18dp"
-                                android:fontFamily="@font/nunito" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        app:cardCornerRadius="10dp"/>
 
                     <Button
                         android:id="@+id/synchronize_data"

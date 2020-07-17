@@ -30,15 +30,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 public class UserInfo extends AppCompatActivity {
 
-    UserData user = new UserData();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("users");
     PlacesClient placesClient;
@@ -46,7 +47,9 @@ public class UserInfo extends AppCompatActivity {
     Restaurant myRestaurant = new Restaurant();
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseUser user;
     private String userID;
+    public ArrayList<String> masterPlacesArray;
 
 //    TextView name = (TextView) findViewById(R.id.user_name_view);
     //TextView username = (TextView) findViewById(R.id.user_username_view);
@@ -62,27 +65,19 @@ public class UserInfo extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mFirebaseDatabase.getReference();
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         assert user != null;
-        //userID = user.getUid();
-        userID = "v18TgOTe5lfNytp4wokOB5HSjDb2";
+        userID = user.getUid();
 
         this.setTitle("Rando");
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         this.getSupportActionBar().setCustomView(R.layout.action_bar);
 
-        Button userOpenDirectionButton = (Button) findViewById(R.id.user_restaurant_directions_view1);
+        displayUserInfo();
+
         ImageView userDataButton = (ImageView) findViewById(R.id.image_button_user);
         ImageView btnOpenRandom = (ImageView) findViewById(R.id.image_button_random);
         ImageView btnOpenHome = (ImageView) findViewById(R.id.image_button_home);
-
-        userOpenDirectionButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View v) {
-                //openDirection2();
-            }
-        });
 
         btnOpenHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,74 +132,6 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                TextView username = (TextView) findViewById(R.id.user_email_view);
-                username.setText(value);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        TextView restaurantSlot1 = (TextView) findViewById(R.id.user_restaurant_name_view1);
-        TextView restaurantSlot2 = (TextView) findViewById(R.id.user_restaurant_name_view2);
-        TextView restaurantSlot3 = (TextView) findViewById(R.id.user_restaurant_name_view3);
-
-
-        Integer number = 2;
-        ArrayList<TextView> restaurantSlots = new ArrayList<>();
-        restaurantSlots.add(restaurantSlot1);
-        restaurantSlots.add(restaurantSlot2);
-        restaurantSlots.add(restaurantSlot3);
-
-
-        for (int i = 0; i < 3; i++) {
-            int finalI = i;
-            myRef.child(userID).child("places").child(number.toString()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String value = dataSnapshot.getValue(String.class);
-                    try {
-                        loadRestaurant(value, restaurantSlots.get(finalI));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-            number++;
-        }
-
-//        myRef.child(userID).child("places").child("1").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String value = dataSnapshot.getValue(String.class);
-//                try {
-//                    loadRestaurant(value);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-
-        myRef.child(userID).child("name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        myRef.child(userID).child("name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
                 TextView username = (TextView) findViewById(R.id.user_name_title);
                 username.setText(value);
             }
@@ -213,36 +140,57 @@ public class UserInfo extends AppCompatActivity {
             }
         });
 
-//        myRef.child("asdf").child("places").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                ArrayList<String> userPlaces = new ArrayList<>();
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    String placeId = snapshot.getValue(String.class);
-//                    userPlaces.add(placeId);
-//                }
-//
-//                ArrayList<String> userPlaceNames = new ArrayList<>();
-//                for(String placeId: userPlaces){
+
+
+            myRef.child(userID).child("places").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<String> placesArray = new ArrayList<>();
+                    Map<String, String> placesMap = (Map<String, String>) dataSnapshot.getValue();
+                    Iterator it = placesMap.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        placesArray.add(pair.getValue().toString());
+                        it.remove();
+
+                    }
+                    masterPlacesArray = placesArray;
+                    ListView listView = (ListView) findViewById(R.id.ListView);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserInfo.this, android.R.layout.simple_list_item_1, placesArray);
+                    listView.setAdapter(adapter);
 //                    try {
-//                        loadRestaurant(placeId);
-//                        TextView restaurantName = (TextView) findViewById(R.id.user_restaurant_name_view);
-//                        String placeName = restaurantName.getText().toString();
-//                        userPlaceNames.add(placeName);
+//                        loadRestaurant(value, restaurantSlots.get(finalI));
 //                    } catch (InterruptedException e) {
 //                        e.printStackTrace();
 //                    }
-//                }
-//
-//                ListView placesListView = findViewById(R.id.user_places_view);
-//                ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, userPlaces);
-//                placesListView.setAdapter(adapter);
-//
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
+
+        myRef.child(userID).child("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        myRef.child(userID).child("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView username = (TextView) findViewById(R.id.user_email_view);
+                username.setText(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 
     }
@@ -280,5 +228,19 @@ public class UserInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
+//    public displayRestaurantNames(ArrayList<String> placesArray) {
+//
+//        Iterator it = placesArray.iterator();
+//        Iterator it2 =
+//        while (it.hasNext()) {
+//            = (Map.Entry)it.next();
+//            placesArray.add(pair.getValue().toString());
+//            it.remove();
+//
+//        }
+//
+//        ListView lv = (ListView) findViewById(R.id.ListView);
+//        Iterator
+//    }
 
 }

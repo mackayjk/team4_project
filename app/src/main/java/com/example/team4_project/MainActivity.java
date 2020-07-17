@@ -138,12 +138,16 @@ public class MainActivity extends AppCompatActivity {
                 String RestName = name.getText().toString();
                 if(!Restaurant.equals("")){
                     FirebaseUser user = mAuth.getCurrentUser();
-                    assert user != null;
-                    String userID = user.getUid();
-                    myRef.child(userID).child("email").setValue(user.getEmail());
-                    myRef.child(userID).child("places").child(Restaurant).setValue(Restaurant);
-                    toastMessage("Adding " + RestName + " to favorites");
-                    restaurant_id_view.setText("");
+                    
+                    if (user == null) {
+                        toastMessage("Please Sign in to save restaurant");
+                    } else {
+                        String userID = user.getUid();
+                        myRef.child(userID).child("email").setValue(user.getEmail());
+                        myRef.child(userID).child("places").child(RestName).setValue(RestName);
+                        toastMessage("Adding " + RestName + " to favorites");
+                        restaurant_id_view.setText("");
+                    }
                 }
             }
         });

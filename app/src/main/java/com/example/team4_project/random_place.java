@@ -2,6 +2,7 @@ package com.example.team4_project;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +41,6 @@ public class random_place extends AppCompatActivity {
     String PLACE_SEARCH_ENDPOINT = "https://maps.googleapis.com/maps/api/place/textsearch/json";
     String API_KEY = "AIzaSyB2Ul315SoD2GRH-xCMvpYUQ3sOlsx7u-Q";
     String apiCharset = StandardCharsets.UTF_8.name();
-    String q = "restaurant in provo";
     Gson gson = new Gson();
 
 
@@ -103,7 +104,7 @@ public class random_place extends AppCompatActivity {
                 Integer luckyNumber = random.nextInt(20);
                 while(iterator.hasNext()) {
                     JsonObject place = iterator.next().getAsJsonObject();
-                    String placeId = place.get("name").toString();
+                    String placeId = place.get("name").toString().replaceAll("\"", "");
 
                     if (i == luckyNumber) {
                         return placeId;
@@ -123,7 +124,9 @@ public class random_place extends AppCompatActivity {
             super.onPostExecute(s);
             //Toast.makeText(random_place.this, s, Toast.LENGTH_LONG).show();
             TextView resultView = (TextView) findViewById(R.id.result_view);
+            CardView resultCard = (CardView) findViewById(R.id.result_view_card);
             resultView.setText(s);
+            resultCard.setVisibility(View.VISIBLE);
         }
 
         private String getHttpResults(String url) throws IOException {
@@ -147,6 +150,8 @@ public class random_place extends AppCompatActivity {
         }
 
         public String getRandomPlacesJSON() throws IOException {
+            EditText editText = (EditText) findViewById(R.id.editTextQuery);
+            String q = editText.getText().toString();
             String url = String.format("%s?query=%s&key=%s&type=restaurant",
                     PLACE_SEARCH_ENDPOINT,
                     URLEncoder.encode(q, apiCharset),

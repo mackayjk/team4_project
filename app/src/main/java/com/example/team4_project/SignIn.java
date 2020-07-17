@@ -9,10 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class SignIn extends AppCompatActivity {
 
@@ -20,6 +25,8 @@ public class SignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText mEmail, mPassword;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference mDatabase = database.getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +47,17 @@ public class SignIn extends AppCompatActivity {
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     toastMessage("Successfully signed in with: " + user.getEmail());
+                    String RestName = "Restaurant";
+                    String userID = user.getUid();
+                    mDatabase.child(userID).child("email").setValue(user.getEmail());
+                    mDatabase.child(userID).child("places").child(RestName).setValue(RestName);
+
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                     toastMessage("Successfully signed out.");
                 }
             }
         };
-
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,8 +65,15 @@ public class SignIn extends AppCompatActivity {
                 String pass = mPassword.getText().toString();
                 if (!email.equals("") && !pass.equals("")) {
                     mAuth.signInWithEmailAndPassword(email, pass);
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    String RestName = "";
+                    assert user != null;
+                    String userID = user.getUid();
+                    mDatabase.child(userID).child("email").setValue(user.getEmail());
+                    mDatabase.child(userID).child("places").child(RestName).setValue(RestName);
                     Intent intent = new Intent(SignIn.this, MainActivity.class);
                     startActivity(intent);
+
 
                 } else {
                     toastMessage("You didn't fill in all the fields.");

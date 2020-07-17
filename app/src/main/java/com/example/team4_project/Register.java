@@ -63,16 +63,9 @@ public class Register extends AppCompatActivity {
     }
 
     public void saveUser(String email) {
-        ArrayList<String> places = new ArrayList<>();
         mAuth.signInWithEmailAndPassword(email, password);
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        places.add("You have none saved.");
-        assert currentUser != null;
-        mDatabase.child(currentUser.getUid()).child("email").setValue(email);
-        mDatabase.child(currentUser.getUid()).child("places").setValue(places);
-        mDatabase.child(currentUser.getUid()).child("name").setValue("");//adding user info to database
-        mDatabase.child(currentUser.getUid()).child("places").child("Favorite Foods").child("ooof").setValue("true");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SignIn.class);
         startActivity(intent);
     }
 

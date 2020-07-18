@@ -6,9 +6,12 @@ import androidx.cardview.widget.CardView;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -88,12 +91,19 @@ public class random_place extends AppCompatActivity {
         return;
     }
 
-    private class GetRandomAsyncTask extends AsyncTask<Void, Void, String> {
+    private class GetRandomAsyncTask extends AsyncTask<Void, Void, Restaurant> {
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected Restaurant doInBackground(Void... voids) {
+            Restaurant randomRestaurant = new Restaurant();
+            //fall back option
+            randomRestaurant.setRestaurantId("ChIJf83U3auQTYcRcsZgTfnaQOg");
+            randomRestaurant.setRestaurantAddress("445 Freedom Blvd 200 W, Provo, UT 84601, USA");
+            randomRestaurant.setRestaurantName("Example Restaurant");
+            randomRestaurant.setRestaurantRating(5.0);
+            randomRestaurant.setRestaurantWebsiteUri(Uri.parse("google.com"));
+
             try {
-                String placeIds = "";
 
                 String result = getRandomPlacesJSON();
                 JsonObject jsonObject = gson.fromJson( result, JsonObject.class);
@@ -104,28 +114,32 @@ public class random_place extends AppCompatActivity {
                 Integer luckyNumber = random.nextInt(20);
                 while(iterator.hasNext()) {
                     JsonObject place = iterator.next().getAsJsonObject();
-                    String placeId = place.get("name").toString().replaceAll("\"", "");
+
 
                     if (i == luckyNumber) {
-                        return placeId;
+                        randomRestaurant.setRestaurantName(place.get("name").toString().replaceAll("\"", ""));
+                        randomRestaurant.setRestaurantId(place.get("place_id").toString().replaceAll("\"", ""));
+                        return randomRestaurant;
                     }
                     i++;
                 }
-                return "didn't work";
+                return randomRestaurant;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return "Testing";
+            return randomRestaurant;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(Restaurant r) {
+            super.onPostExecute(r);
             //Toast.makeText(random_place.this, s, Toast.LENGTH_LONG).show();
             TextView resultView = (TextView) findViewById(R.id.result_view);
             CardView resultCard = (CardView) findViewById(R.id.result_view_card);
-            resultView.setText(s);
+            TextView randomPlaceId = (TextView) findViewById(R.id.result_place_id);
+            resultView.setText(r.restaurantName);
+            randomPlaceId.setText(r.restaurantId);
             resultCard.setVisibility(View.VISIBLE);
         }
 
@@ -169,6 +183,28 @@ public class random_place extends AppCompatActivity {
     public void openHome() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void loadRandomRestaurant() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TextView randomPlaceId = (TextView) findViewById(R.id.result_place_id);
+                    MainActivity m = MainActivity.getInstance();
+                    m.loadRestaurant(randomPlaceId.getText().toString());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } // This is your code
+        };
+        mainHandler.post(myRunnable);
+
     }
 }
 

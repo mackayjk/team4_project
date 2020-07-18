@@ -3,6 +3,7 @@ package com.example.team4_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SignIn extends AppCompatActivity {
 
@@ -32,11 +34,15 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        this.setTitle("Rando");
+        Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        this.getSupportActionBar().setCustomView(R.layout.action_bar);
+
         mEmail = (EditText) findViewById(R.id.emailEntry);
         mPassword = (EditText) findViewById(R.id.password);
         Button btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
         Button btnSignOut = (Button) findViewById(R.id.email_sign_out_button);
-        Button btnAddItems = (Button) findViewById(R.id.add_item_screen);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -86,15 +92,6 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View view) {
                 mAuth.signOut();
                 toastMessage("Signing Out...");
-            }
-        });
-
-        btnAddItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: Switching Activities.");
-                Intent intent = new Intent(SignIn.this, Register.class);
-                startActivity(intent);
             }
         });
     }

@@ -7,68 +7,76 @@
 
     tools:context=".SignIn">
 
-    <ScrollView
-        android:id="@+id/login_form"
+    <LinearLayout
+        android:id="@+id/email_login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/email_login_form"
+
+        <EditText
+            android:id="@+id/emailEntry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:fontFamily="@font/nunito"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
 
 
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:fontFamily="@font/nunito"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
 
-            <EditText
-                android:id="@+id/emailEntry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"/>
+        <Button
+            android:id="@+id/email_sign_in_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:background="#00af9a"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Sign In"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/email_sign_out_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign out"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="#fafafa"
+            android:fontFamily="@font/nunito"
+            android:textAllCaps="false"
+            android:textColor="#777"
+            android:textSize="20dp" />
 
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                />
-
-            <Button
-                android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Sign In"
-                android:textStyle="bold"/>
-
-            <Button
-                android:id="@+id/email_sign_out_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Sign out"
-                android:textStyle="bold"/>
-
-            <Button
-                android:id="@+id/add_item_screen"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Add Items to Database"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 </LinearLayout>

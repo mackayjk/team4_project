@@ -92,16 +92,6 @@ public class UserInfo extends AppCompatActivity {
                 openRandom();
             }
         });
-
-
-        Button synchronizeDataButton = (Button) findViewById(R.id.synchronize_data);
-
-        synchronizeDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayUserInfo();
-            }
-        });
     }
 
     public void initializePlaces() {

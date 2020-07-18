@@ -98,23 +98,36 @@
 
                 <TextView
                     android:id="@+id/result_view"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_bold"
+                    android:gravity="center"
+                    android:maxLines="1"
+
+                    android:text="Restaurant Name"
+
+                    android:textColor="#000"
+                    android:textSize="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/result_place_id"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
                     android:text="Restaurant Name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:textSize="20dp"
                     android:fontFamily="@font/nunito"
-                    android:layout_marginLeft="16dp"/>
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="View"
+                    android:layout_marginLeft="16dp"
                     android:maxLines="1"
                     android:ellipsize="end"/>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

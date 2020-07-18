@@ -42,8 +42,9 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    static MainActivity MainActivityInstance;
     private static final String TAG = "MyActivity";
-    PlacesClient placesClient;
+    public static PlacesClient placesClient;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("users");
     private FirebaseAuth mAuth;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivityInstance = this;
         setContentView(R.layout.activity_main);
         initializePlaces();
         initializeAutocomplete();
@@ -195,16 +197,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void loadRestaurant(String placeId) throws InterruptedException {
+
         initializePlaces();
-        //String placeId = "ChIJf83U3auQTYcRcsZgTfnaQOg";
         RestaurantLoader restaurantLoader = new RestaurantLoader(placesClient);
-        Restaurant r = restaurantLoader.getRestaurant(placeId, this);
+        Restaurant r = restaurantLoader.getRestaurant(placeId, MainActivity.this);
         //Toast.makeText(this, "testing the toast message." + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
 
     }
 
     public void showData(Restaurant r) {
-        Toast.makeText(this, "Restaurant found!\n" + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Restaurant found!\n" + r.getRestaurantName(), Toast.LENGTH_SHORT).show();
         TextView restaurantName = (TextView) findViewById(R.id.restaurant_name_view);
         TextView restaurantAddress = (TextView) findViewById(R.id.restaurant_address_view);
         TextView restaurantWebsite = (TextView) findViewById(R.id.restaurant_website_view);
@@ -290,5 +292,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void toastMessage(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+    public static MainActivity getInstance() {
+        return MainActivityInstance;
+    }
+
+    public void setCardVisible() {
+        CardView restaurantCard = (CardView) findViewById(R.id.restaurant_card);
+        restaurantCard.setVisibility(View.VISIBLE);
     }
 }
